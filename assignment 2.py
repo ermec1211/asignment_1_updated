@@ -144,7 +144,7 @@ def read_file_put_into_dict(file_name):
     return full_list
 
 
-def gets_list_of_dishes():
+def get_file_name():
     while True:
         print("what is the name of the file you would like to open?")
         file_name = input()
@@ -153,10 +153,24 @@ def gets_list_of_dishes():
         else:
             print("this file does not exist")
             print("please try again")
-    
+    return file_name
+
+
+def gets_list_of_dishes(file_name): #rename at some point    
     dishes = []
     dishes = read_file_put_into_dict(file_name)
     return dishes
+
+
+def write_dishes_back_to_file(file_name, dishes):
+    with open(file_name, "w") as file:
+        for dish in dishes:
+            name = dish["name"]
+            calories = dish["calories"]
+            ingredients = dish["ingredients"]
+            ingredients = ",".join(ingredients)
+            file.write(f"name: {name} calories: {calories} ingredients: {ingredients}\n")
+
 
 def is_digit(value):
     if value.isdigit():
@@ -443,8 +457,8 @@ def search_dishes_by_ingredient(dishes):
 
     
 def main():
-
-    dishes = gets_list_of_dishes()
+    file_name = get_file_name()
+    dishes = gets_list_of_dishes(file_name)
 
     print("welcome to the restaurant electronic menu")
     print("here are the current dishes that we are offering")
@@ -477,6 +491,8 @@ def main():
         elif choice == "7":
             get_all_dish_names(dishes)
         elif choice == "8":
+            write_dishes_back_to_file(file_name, dishes)
+            print("all new changes have been saved")
             print("exiting the program")
             break
         else:
