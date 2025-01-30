@@ -51,6 +51,60 @@ def target_objectives():
     pass
 
 
+def updated_objectives():
+    # updated program should use file io to store the dishes
+    # store using a json file where the dishes are listed in the following way:
+    # name: name of dish, calories: calorie count, ingredients: list of ingredients
+    # open the file in read mode and loop through the file lines by putting the lines into varibles
+    # once ou have a name var, calories var and ingrediants list
+    # turn them into a dictionary and append them to a list
+    pass
+
+
+def file_exists(file_name):
+    try:
+        with open(file_name, "r") as file:
+            return True
+    except FileNotFoundError:
+        return False
+    
+
+def put_dishes_into_dict(file_name):
+    # this function is to take the file and go through each line so it can then put the correct things into a varible wich is then turned into a dictionary
+    # when it reads "name:" in the file the next following is the name of the item.
+    #the program will know when to stop with the name when it reads "." seperating the name from the next varible
+    dishes = []
+    dish_name = ""
+    dish_calories = 0
+    dish_ingredients = []
+    i = 0
+    with open(file_name, "r") as file:
+        for line in file:
+            if "name:" in line:
+                dish_name = line.split(":").strip()
+            elif "calories:" in line:
+                dish_calories = int(line.split(":").strip())
+            elif "ingredients:" in line:
+                dish_ingredients = line.split(":").strip().split(",")
+                dishes.append({
+                    "name": dish_name,
+                    "calories": dish_calories,
+                    "ingredients": dish_ingredients
+                })
+
+def get_list_of_dishes(file_name):
+    while True:
+        print("what is the name of the file you would like to open?")
+        file_name = input()
+        if file_exists(file_name):
+            dishes = put_dishes_into_dict(file_name)
+            return dishes
+        else:
+            print("this file does not exist")
+            print("please try again")
+    
+
+
 def is_digit(value):
     if value.isdigit():
         return True
