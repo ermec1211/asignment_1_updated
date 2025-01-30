@@ -67,29 +67,81 @@ def file_exists(file_name):
     
 
 def read_file_put_into_dict(file_name):
-    # this function is to take the file and go through each line so it can then put the correct things into a varible wich is then turned into a dictionary
-    # when it reads "name:" in the file the next following is the name of the item.
+    """
+    Reads each line from file_name, which should look like:
     
+    name: pizza calories: 500 ingrdiants: cheese,peperoni,tomato sause, bread
+    
+    Parses these lines into a list of dictionaries like:
+    {
+        "name": "pizza",
+        "calories": 500,
+        "ingredients": ["cheese", "peperoni", "tomato sause", "bread"]
+    }
+    
+    Returns that list.
+    """
+
     dish_name = ""
-    dish_calories = 0
-    dish_ingredients = []
+    calories = 0
+    
+    ingredients = []
+    full_list = []
     with open(file_name, "r") as file:
         for line in file:
-            if "name:" in line:
-                dish_name = line.split(":").strip()
-            elif "calories:" in line:
-                dish_calories = int(line.split(":").strip())
-            elif "ingredients:" in line:
-                ingredient = line.split(":").strip()
-                dish_ingredients.append(ingredient)
-        
-        dish = {
-            "name": dish_name,
-            "calories": dish_calories,
-            "ingredients": dish_ingredients
-        }
-                          
-    return dish
+            line = line.strip()
+            if not line:
+                continue
+            
+        # this code turns the line into two lists, one with what was on the left of ingredaints: 
+        # and one with what was on the right wich should leave
+        # all the ingrediants in a list but are still all one index due to ","
+            try:
+                name_and_cals_split, ingredients = line.split("ingredients:")
+            except ValueError:
+                print(f"no ingrediants found on line {line}")
+                continue #no idea why this isnt working
+
+            # finish dealing with the ingrediants by splitting at the ","
+            ingredients = ingredients.split(",")
+            ingredients = [ingrediant.strip() for ingrediant in ingredients] # turned into a string for some reason
+
+            #had a parse error so doing this before stops it
+            name_and_cals_split = name_and_cals_split.strip()
+
+            try:
+                name_split, calories = name_and_cals_split.split("calories:")
+            except ValueError:
+                print(f"no calories found on line {line}")
+                continue
+
+            calories = calories.strip()
+
+            if is_digit(calories):
+                calories = int(calories)
+            else:
+                print(f"calories {calories} is not a valid number")
+                continue
+
+            name_split = name_split.strip()
+
+            try:
+                trash, dish_name = name_split.split("name:")
+            except ValueError:
+                print(f"no name found on line {line}")
+                continue
+            
+            dish_name = dish_name.strip()
+
+            dish = {
+                "name" : dish_name,
+                "calories": calories,
+                "ingredients": ingredients
+            }
+
+            full_list.append(dish)
+           
+    return full_list
 
 
 def gets_list_of_dishes():
@@ -103,7 +155,7 @@ def gets_list_of_dishes():
             print("please try again")
     
     dishes = []
-    dishes.append(read_file_put_into_dict(file_name))
+    dishes = read_file_put_into_dict(file_name)
     return dishes
 
 def is_digit(value):
@@ -433,3 +485,4 @@ def main():
 
 
 if __name__ == "__main__":
+    main()

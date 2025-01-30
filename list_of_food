@@ -1,6 +1,6 @@
-name: pizza calories: 500 ingrdiants: cheese,peperoni,tomato sause, bread
-name: burger calories: 700 ingrdiants: beef,lettuce,tomato,cheese,bun
-name: pasta calories: 400 ingrdiants: pasta,tomato sauce,cheese
-name: salad calories: 150 ingrdiants: lettuce,tomato,cucumber,carrot
-name: sushi calories: 300 ingrdiants: rice,fish,seaweed
-name: sandwich calories: 350 ingrdiants: bread,ham,cheese,lettuce,tomato
+name: pizza calories: 500 ingredients: cheese,peperoni,tomato sause, bread
+name: burger calories: 700 ingredients: beef,lettuce,tomato,cheese,bun
+name: pasta calories: 400 ingredients: pasta,tomato sauce,cheese
+name: salad calories: 150 ingredients: lettuce,tomato,cucumber,carrot
+name: sushi calories: 300 ingredients: rice,fish,seaweed
+name: sandwich calories: 350 ingredients: bread,ham,cheese,lettuce,tomato
