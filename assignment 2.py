@@ -59,6 +59,10 @@ def updated_objectives():
 
 
 def file_exists(file_name):
+    """
+    Checks if a file with the given name exists.
+    Returns True if it exists, else False.
+    """
     try:
         with open(file_name, "r") as file:
             return True
@@ -68,16 +72,16 @@ def file_exists(file_name):
 
 def read_file_put_into_dict(file_name):
     """
-    Reads each line from file_name, which should look like:
-    
-    name: pizza calories: 500 ingrdiants: cheese,peperoni,tomato sause, bread
-    
+    Reads each line from `file_name`. 
+    Each line should look like:
+        name: pizza calories: 500 ingredients: cheese,pepperoni,tomato sauce,bread
+
     Parses these lines into a list of dictionaries like:
-    {
-        "name": "pizza",
-        "calories": 500,
-        "ingredients": ["cheese", "peperoni", "tomato sause", "bread"]
-    }
+        {
+            "name": "pizza",
+            "calories": 500,
+            "ingredients": ["cheese", "pepperoni", "tomato sauce", "bread"]
+        }
     
     Returns that list.
     """
@@ -145,6 +149,10 @@ def read_file_put_into_dict(file_name):
 
 
 def get_file_name():
+    """
+    Asks the user for a file name until a valid file is given.
+    Returns the file name.
+    """
     while True:
         print("what is the name of the file you would like to open?")
         file_name = input()
@@ -163,6 +171,9 @@ def gets_list_of_dishes(file_name): #rename at some point
 
 
 def write_dishes_back_to_file(file_name, dishes):
+    """
+    Writes the list of dishes back to file in the format:
+    """
     with open(file_name, "w") as file:
         for dish in dishes:
             name = dish["name"]
@@ -173,6 +184,10 @@ def write_dishes_back_to_file(file_name, dishes):
 
 
 def is_digit(value):
+    """
+    Checks if the provided string `value` is only digits.
+    Returns True if yes, else False.
+    """
     if value.isdigit():
         return True
     return False
